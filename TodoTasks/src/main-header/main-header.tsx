@@ -6,7 +6,12 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-export const MainHeader = () => {
+//TODO: in future
+// type Props = {
+//   title: string;
+// };
+
+export const MainHeader = (props: any) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: '#1e3799' }}>
@@ -14,7 +19,7 @@ export const MainHeader = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <CheckCircleIcon />
             <Typography variant="h6" component="div">
-              TaskFlow Manager
+              {props.title}
             </Typography>
           </Box>
           <Stack direction="row" spacing={2} alignItems="center">

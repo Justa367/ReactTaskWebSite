@@ -2,7 +2,7 @@ import { CardContent, Typography, Stack, Button } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { ArrowDropDown } from '@mui/icons-material';
 
-export const FilerTasks = () => {
+export const SearchAndFilterForm = () => {
   return (
     <CardContent sx={{ p: 0 }}>
       <Stack

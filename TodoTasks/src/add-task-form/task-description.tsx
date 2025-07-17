@@ -8,7 +8,6 @@ export const TaskDescription = () => {
       alignItems="center"
       component="form"
       noValidate
-      autoCapitalize="off"
       sx={{ width: '100%' }}
     >
       <TextField id="outlined-basic" label="Task description" variant="outlined" fullWidth />
