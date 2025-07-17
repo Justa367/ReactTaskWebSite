@@ -1,13 +1,26 @@
-// Ten folder wyrzuca na świat połączone ze sobą np. name-input z date-input
-import { Card, CardContent, Stack, Typography } from '@mui/material';
+import { Card, CardContent, Stack, Typography, Button } from '@mui/material';
 import { TaskDescription } from './task-description.tsx';
-import { ChooseDate } from './date-input.tsx';
+import { DateInput } from './date-input.tsx';
+import { useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+
+//TODO: npm i react-hook-form
+//TODO: Stworzyc formularz z react-hook-form używając register i useForm
+//TODO: na submicie console.log z wartoscami z formularza
+//TODO: register musi być przekazany do komponentów z formularza - task description i choose date (propsem)
+
+type FormValues = {
+  taskDescription: string;
+  priority: string;
+  date: string;
+};
 
 export const AddTaskForm = () => {
-  //TODO: npm i react-hook-form
-  //TODO: Stworzyc formularz z react-hook-form używając register i useForm
-  //TODO: na submicie console.log z wartoscami z formularza
-  //TODO: register musi być przekazany do komponentów z formularza - task description i choose date (propsem)
+  const { register, handleSubmit, control } = useForm<FormValues>();
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log('Form data:', data);
+  };
 
   return (
     <Card elevation={1} sx={{ borderRadius: 2, p: 2 }}>
@@ -16,10 +29,20 @@ export const AddTaskForm = () => {
           Add New Task
         </Typography>
       </CardContent>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
-          <TaskDescription />
-          <ChooseDate />
+          <TaskDescription register={register} />
+          <Stack spacing={2} direction="row">
+            <DateInput control={control} />
+            <Button
+              type="submit"
+              variant="contained"
+              disableElevation
+              sx={{ width: 150, backgroundColor: '#1e3799', height: 50 }}
+            >
+              + Add Task
+            </Button>
+          </Stack>
         </Stack>
       </form>
     </Card>

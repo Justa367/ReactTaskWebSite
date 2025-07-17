@@ -2,7 +2,7 @@ import { Stack, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 //TODO: Change name of component on the same name as file
-export const SearchTask = () => {
+export const SearchInput = () => {
   return (
     <Stack
       direction="row"
