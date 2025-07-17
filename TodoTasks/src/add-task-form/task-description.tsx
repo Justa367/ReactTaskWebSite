@@ -1,6 +1,10 @@
 import { FormControl, InputLabel, Select, MenuItem, Stack, TextField } from '@mui/material';
+import { useFormContext } from 'react-hook-form';
 
-export const TaskDescription = ({ register }: any) => {
+export const TaskDescription = () => {
+  const { register } = useFormContext();
+
+  //TODO change na Controller select and textfield
   return (
     <Stack direction="row" spacing={2} alignItems="center" sx={{ width: '100%' }}>
       <TextField

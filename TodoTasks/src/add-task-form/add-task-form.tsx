@@ -1,13 +1,8 @@
 import { Card, CardContent, Stack, Typography, Button } from '@mui/material';
 import { TaskDescription } from './task-description.tsx';
 import { DateInput } from './date-input.tsx';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
-
-//TODO: npm i react-hook-form
-//TODO: Stworzyc formularz z react-hook-form używając register i useForm
-//TODO: na submicie console.log z wartoscami z formularza
-//TODO: register musi być przekazany do komponentów z formularza - task description i choose date (propsem)
 
 type FormValues = {
   taskDescription: string;
@@ -16,9 +11,12 @@ type FormValues = {
 };
 
 export const AddTaskForm = () => {
-  const { register, handleSubmit, control } = useForm<FormValues>();
+  const form = useForm<FormValues>();
+
+  const { handleSubmit } = form;
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    //TODO add new element to tasks useState - tablica obiektów
     console.log('Form data:', data);
   };
 
@@ -29,22 +27,24 @@ export const AddTaskForm = () => {
           Add New Task
         </Typography>
       </CardContent>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
-          <TaskDescription register={register} />
-          <Stack spacing={2} direction="row">
-            <DateInput control={control} />
-            <Button
-              type="submit"
-              variant="contained"
-              disableElevation
-              sx={{ width: 150, backgroundColor: '#1e3799', height: 50 }}
-            >
-              + Add Task
-            </Button>
+      <FormProvider {...form}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={2}>
+            <TaskDescription />
+            <Stack spacing={2} direction="row">
+              <DateInput />
+              <Button
+                type="submit"
+                variant="contained"
+                disableElevation
+                sx={{ width: 150, backgroundColor: '#1e3799', height: 50 }}
+              >
+                + Add Task
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
-      </form>
+        </form>
+      </FormProvider>
     </Card>
   );
 };
