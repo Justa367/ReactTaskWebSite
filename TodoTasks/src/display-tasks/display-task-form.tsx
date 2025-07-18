@@ -18,13 +18,13 @@ type Props = {
 
 const PriorityTypography = styled(Typography)<{ priority: TaskType['priority'] }>(
   ({ priority }) => ({
-    fontWeight: 'bold',
     textTransform: 'capitalize',
+    fontSize: '0.8rem',
     color: '#fff',
     backgroundColor:
       priority === 'high' ? '#d32f2f' : priority === 'medium' ? '#fb8c00' : '#388e3c',
     borderRadius: '8px',
-    padding: '2px 8px',
+    padding: '3px 8px',
   }),
 );
 
@@ -50,19 +50,13 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
           </Typography>
           <List>
             {tasks.map((task, index) => (
-              <ListItem
-                key={index}
-                secondaryAction={
-                  <IconButton edge="end" sx={{ color: '#eb0e2bff' }}>
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              >
+              // Dodać border radius
+              <ListItem className={task.isDone ? 'completed-task' : 'not'} key={index}>
                 <ListItemButton onClick={handleToggle(index)} dense>
                   <ListItemIcon>
                     <Checkbox
                       edge="start"
-                      checked={task.isDone}
+                      checked={task.isDone ?? false}
                       tabIndex={-1}
                       sx={{
                         color: '#1e3799',
@@ -72,6 +66,7 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
                       }}
                     />
                   </ListItemIcon>
+                  {/*TODO większy odstęp między wierszami*/}
                   <ListItemText
                     primary={
                       <Stack direction="row" spacing={3}>
@@ -81,11 +76,15 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
                         <PriorityTypography priority={task.priority}>
                           {task.priority}
                         </PriorityTypography>
+                        {/*Zmniejszyć czcionkę*/}
                         <Typography>{`Due to: ${task.date?.format('DD/MM/YYYY')}`}</Typography>
                       </Stack>
                     }
                     secondary={`Created At: ${task.createdAt?.format('DD/MM/YYYY')}`}
                   />
+                  <IconButton edge="end" sx={{ color: '#eb0e2bff' }}>
+                    <DeleteIcon />
+                  </IconButton>
                 </ListItemButton>
               </ListItem>
             ))}
@@ -95,3 +94,9 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
     </Card>
   );
 };
+
+//TODO: style dla completed task
+//TODO: ogarnąć delete task
+//TODO: jeśli due date minęło to dodać czerwony border
+//TODO: Add progress overview section
+//TODO: ogarnąć wyświetlanie taska jesli nie ma due date

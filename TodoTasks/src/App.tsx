@@ -18,8 +18,8 @@ export default function App() {
           <AddTaskForm tasks={tasks} setTasks={setTasks} />
           <SearchAndFilterForm />
           <QuickFilterForm />
-          {/*TODO: Display Tasks from useState*/}
           <DisplayTaskCard tasks={tasks} setTasks={setTasks} />
+          {/*TODO:  Progress overwiev*/}
         </Stack>
       </Container>
     </Box>
