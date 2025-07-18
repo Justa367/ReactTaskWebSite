@@ -10,14 +10,18 @@ type FormValues = {
   date: string;
 };
 
-export const AddTaskForm = () => {
+export const AddTaskForm = ({ tasks, setTasks }: any) => {
   const form = useForm<FormValues>();
 
   const { handleSubmit } = form;
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    //TODO add new element to tasks useState - tablica obiektów
-    console.log('Form data:', data);
+    console.log(tasks);
+    setTasks((prev: any[]) => {
+      const updatedTasks = [...prev, data];
+      console.log('All:', updatedTasks);
+      return updatedTasks;
+    });
   };
 
   return (
