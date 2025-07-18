@@ -5,13 +5,17 @@ import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import type { TaskType } from '../types/task-type.ts';
 
-//TODO:
-// type Props = {
-//   title: string;
-// };
+type Props = {
+  tasks: TaskType[];
+};
 
-export const MainHeader = (props: any) => {
+export const MainHeader = (props: Props) => {
+  const { tasks } = props;
+  const completedTasksCount = tasks.filter((task) => task.isDone).length;
+  const progressPercent = tasks.length === 0 ? 0 : (completedTasksCount / tasks.length) * 100;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: '#1e3799' }}>
@@ -19,14 +23,14 @@ export const MainHeader = (props: any) => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <CheckCircleIcon />
             <Typography variant="h6" component="div">
-              {props.title}
+              TaskFlow Menager
             </Typography>
           </Box>
           <Stack direction="row" spacing={2} alignItems="center">
             <Typography variant="body2">Task Progress</Typography>
             <LinearProgress
               variant="buffer"
-              value={50}
+              value={progressPercent}
               valueBuffer={100}
               sx={{
                 width: 100,

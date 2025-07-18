@@ -8,19 +8,18 @@ import { useState } from 'react';
 import type { TaskType } from './types/task-type.ts';
 
 export default function App() {
-  const appName = 'TaskFlow Manager';
   const [tasks, setTasks] = useState<Array<TaskType>>([]);
 
   return (
     <Box>
-      <MainHeader title={appName} />
+      <MainHeader tasks={tasks} />
       <Container maxWidth="md" sx={{ mt: 4 }}>
         <Stack spacing={4}>
           <AddTaskForm tasks={tasks} setTasks={setTasks} />
           <SearchAndFilterForm />
           <QuickFilterForm />
           {/*TODO: Display Tasks from useState*/}
-          <DisplayTaskCard />
+          <DisplayTaskCard tasks={tasks} setTasks={setTasks} />
         </Stack>
       </Container>
     </Box>
