@@ -3,21 +3,29 @@ import { TaskDescription } from './task-description.tsx';
 import { DateInput } from './date-input.tsx';
 import { FormProvider, useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
+import type { TaskType } from '../types/task-type.ts';
+import type { Dispatch, SetStateAction } from 'react';
+import dayjs from 'dayjs';
 
-type FormValues = {
-  taskDescription: string;
-  priority: string;
-  date: string;
+type FormValues = TaskType;
+
+type Props = {
+  tasks: TaskType[];
+  setTasks: Dispatch<SetStateAction<TaskType[]>>;
 };
 
-export const AddTaskForm = ({ tasks, setTasks }: any) => {
-  const form = useForm<FormValues>();
+export const AddTaskForm = ({ tasks, setTasks }: Props) => {
+  const form = useForm<FormValues>({
+    defaultValues: {
+      createdAt: dayjs(),
+    },
+  });
 
   const { handleSubmit } = form;
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(tasks);
-    setTasks((prev: any[]) => {
+    setTasks((prev) => {
       const updatedTasks = [...prev, data];
       console.log('All:', updatedTasks);
       return updatedTasks;

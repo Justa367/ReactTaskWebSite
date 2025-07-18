@@ -5,10 +5,12 @@ import { SearchAndFilterForm } from './search-and-filters/search-and-filter-form
 import { QuickFilterForm } from './quick-filters/quick-filter-form.tsx';
 import { DisplayTaskCard } from './display-tasks/display-task-form.tsx';
 import { useState } from 'react';
+import type { TaskType } from './types/task-type.ts';
 
 export default function App() {
   const appName = 'TaskFlow Manager';
-  const [tasks, setTasks] = useState<Array<any>>([]);
+  const [tasks, setTasks] = useState<Array<TaskType>>([]);
+
   return (
     <Box>
       <MainHeader title={appName} />
@@ -17,6 +19,7 @@ export default function App() {
           <AddTaskForm tasks={tasks} setTasks={setTasks} />
           <SearchAndFilterForm />
           <QuickFilterForm />
+          {/*TODO: Display Tasks from useState*/}
           <DisplayTaskCard />
         </Stack>
       </Container>

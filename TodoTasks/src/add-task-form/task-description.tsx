@@ -3,7 +3,6 @@ import { useFormContext, Controller } from 'react-hook-form';
 
 export const TaskDescription = () => {
   const { control } = useFormContext();
-  //TODO change na Controller select and textfield - done
   return (
     <Stack direction="row" spacing={2} alignItems="center" sx={{ width: '100%' }}>
       <Controller

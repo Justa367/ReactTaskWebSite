@@ -13,7 +13,7 @@ export const DateInput = () => {
         render={({ field }) => (
           <DatePicker
             label="Due Date"
-            value={field.value}
+            value={field.value ?? null}
             onChange={(date) => field.onChange(date)}
             slotProps={{ textField: { variant: 'outlined', fullWidth: true } }}
           />
