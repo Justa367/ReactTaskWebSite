@@ -27,7 +27,7 @@ export default function App() {
   );
 }
 
-// Context API:
+// Context API: done
 // 1. tasks - useState
 // 2. Provider
 // 3. hook - useTasksState()
