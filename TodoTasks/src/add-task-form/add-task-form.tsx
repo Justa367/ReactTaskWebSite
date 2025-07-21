@@ -15,6 +15,8 @@ type Props = {
 };
 
 export const AddTaskForm = ({ tasks, setTasks }: Props) => {
+  //const {setTasks} = useTasksState() - wtedy juz nie są potrzebne propsy
+
   const form = useForm<FormValues>({
     defaultValues: {
       createdAt: dayjs(),

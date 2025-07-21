@@ -11,6 +11,7 @@ import { ProgressOverviewForm } from './prorgress-overview/progess-overview-form
 export default function App() {
   const [tasks, setTasks] = useState<Array<TaskType>>([]);
   return (
+    //TUtaj użycie Providera
     <Box>
       <MainHeader tasks={tasks} />
       <Container maxWidth="md" sx={{ mt: 4 }}>
@@ -26,3 +27,17 @@ export default function App() {
     </Box>
   );
 }
+
+// Context API:
+// 1. tasks - useState
+// 2. Provider
+// 3. hook - useTasksState()
+
+// później dodanie informacji do tego kontekstu jakie filtry zastosoweał użytkownik
+// przefiltrować taski i zwrócić je z kontekstu np.
+// const filteredTasks = tasks przefiltrowane przez zmienną filters
+
+//filtry: {
+//  search: "dasda",
+//  quick filters - quickFilter: "ALL" | "Active" | "Completed" -> filtracja na logikę
+// }

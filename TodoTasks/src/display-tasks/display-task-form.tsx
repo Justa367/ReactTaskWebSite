@@ -29,6 +29,8 @@ const PriorityTypography = styled(Typography)<{ priority: TaskType['priority'] }
 );
 
 export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
+  //{tasks, setTasks} = useTasksState(); - wtedy juz nie potrzebne propsy
+
   const handleToggle = (index: number) => () => {
     setTasks((prevTasks) => {
       const newTasks = [...prevTasks];
@@ -54,6 +56,7 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
           <Typography variant="h6" fontWeight="bold" color="#1e3799" gutterBottom>
             Your Tasks
           </Typography>
+          {/*Jeśli pusta lista to wyświetl "No tasks yet" + add task icon*/}
           <List>
             {tasks.map((task, index) => {
               const isOverdue = task.date ? task.date.isBefore(new Date(), 'day') : false;
