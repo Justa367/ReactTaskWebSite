@@ -1,5 +1,21 @@
 import { Stack, styled } from '@mui/material';
 import Button from '@mui/material/Button';
+import { useTasksState } from '../task-context/task-context';
+
+// //1. sposób
+// const FilterButtonStyle = {
+//   width: 150,
+//   color: '#1e3799',
+//   borderColor: '#1e3799',
+//   backgroundColor: '#ffffff',
+//   height: 50,
+//   fontWeight: 'bold',
+//   borderRadius: 20,
+//   '&:hover': {
+//     backgroundColor: '#e6f0ff',
+//     borderColor: '#1e3799',
+//   },
+// };
 
 //2. sposób - używajmy tego sposobu, bo jest bardziej czytelny
 //TODO: podmienić resztę FilterButtonów na ten styl - jeśli w sx jest wiecej niż 4
@@ -18,30 +34,31 @@ const FilterButton = styled(Button)`
 `;
 
 export const QuickFilterButtons = () => {
-  // //1. sposób
-  // const FilterButtonStyle = {
-  //   width: 150,
-  //   color: '#1e3799',
-  //   borderColor: '#1e3799',
-  //   backgroundColor: '#ffffff',
-  //   height: 50,
-  //   fontWeight: 'bold',
-  //   borderRadius: 20,
-  //   '&:hover': {
-  //     backgroundColor: '#e6f0ff',
-  //     borderColor: '#1e3799',
-  //   },
-  // };
-
+  const { filters, setFilters } = useTasksState();
+  const handleFilterChange = (value: boolean | null) => () => {
+    setFilters({ showDone: value });
+  };
   return (
     <Stack direction="row" spacing={2} alignItems="center" sx={{ width: '100%' }}>
-      <FilterButton variant="outlined" disableElevation>
+      <FilterButton
+        variant={filters.showDone === null ? 'contained' : 'outlined'}
+        disableElevation
+        onClick={handleFilterChange(null)}
+      >
         All
       </FilterButton>
-      <FilterButton variant="outlined" disableElevation>
+      <FilterButton
+        variant={filters.showDone === false ? 'contained' : 'outlined'}
+        disableElevation
+        onClick={handleFilterChange(false)}
+      >
         Active
       </FilterButton>
-      <FilterButton variant="outlined" disableElevation>
+      <FilterButton
+        variant={filters.showDone === true ? 'contained' : 'outlined'}
+        disableElevation
+        onClick={handleFilterChange(true)}
+      >
         Completed
       </FilterButton>
     </Stack>

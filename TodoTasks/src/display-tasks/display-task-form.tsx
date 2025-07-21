@@ -9,12 +9,8 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from '@mui/material/styles';
-import type { Dispatch, SetStateAction } from 'react';
-
-type Props = {
-  tasks: TaskType[];
-  setTasks: Dispatch<SetStateAction<TaskType[]>>;
-};
+import { useTasksState } from '../task-context/task-context';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 
 const PriorityTypography = styled(Typography)<{ priority: TaskType['priority'] }>(
   ({ priority }) => ({
@@ -28,8 +24,17 @@ const PriorityTypography = styled(Typography)<{ priority: TaskType['priority'] }
   }),
 );
 
-export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
-  //{tasks, setTasks} = useTasksState(); - wtedy juz nie potrzebne propsy
+export const DisplayTaskCard = () => {
+  const { tasks, setTasks, filters } = useTasksState();
+
+  const filteredTasksWithIndex = tasks
+    .map((task, index) => ({ task, index }))
+    .filter(({ task }) => {
+      if (filters.showDone === null || filters.showDone === undefined) return true; // all
+      if (filters.showDone === true) return task.isDone === true; // Completede
+      if (filters.showDone === false) return !task.isDone; // Active
+      return true;
+    });
 
   const handleToggle = (index: number) => () => {
     setTasks((prevTasks) => {
@@ -38,7 +43,6 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
         ...newTasks[index],
         isDone: !newTasks[index].isDone,
       };
-      console.log('Updated tasks:', newTasks);
       return newTasks;
     });
   };
@@ -56,9 +60,16 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
           <Typography variant="h6" fontWeight="bold" color="#1e3799" gutterBottom>
             Your Tasks
           </Typography>
-          {/*Jeśli pusta lista to wyświetl "No tasks yet" + add task icon*/}
+
+          {filteredTasksWithIndex.length === 0 && (
+            <Stack spacing={1} justifyContent="center" alignItems="center" sx={{ p: 2 }}>
+              <AddTaskIcon color="action" />
+              <Typography>No tasks found</Typography>
+            </Stack>
+          )}
+
           <List>
-            {tasks.map((task, index) => {
+            {filteredTasksWithIndex.map(({ task, index }) => {
               const isOverdue = task.date ? task.date.isBefore(new Date(), 'day') : false;
 
               return (
@@ -86,7 +97,6 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
                       />
                     </ListItemIcon>
 
-                    {/*TODO większy odstęp między wierszami done*/}
                     <ListItemText
                       primary={
                         <Stack
@@ -109,7 +119,7 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
                             {task.priority}
                           </PriorityTypography>
 
-                          <Typography fontSize="0.85rem">
+                          <Typography fontSize="0.95rem">
                             {task.date
                               ? `Due to: ${task.date.format('DD/MM/YYYY')}`
                               : 'No due date'}
@@ -117,7 +127,10 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
                         </Stack>
                       }
                       secondary={
-                        <Typography sx={{ opacity: task.isDone ? 0.5 : 1 }}>
+                        <Typography
+                          fontSize="0.85rem"
+                          sx={{ opacity: task.isDone ? 0.5 : 1, mt: 1 }}
+                        >
                           {`Created At: ${task.createdAt?.format('DD/MM/YYYY')}`}
                         </Typography>
                       }

@@ -5,14 +5,10 @@ import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import type { TaskType } from '../types/task-type.ts';
+import { useTasksState } from '../task-context/task-context';
 
-type Props = {
-  tasks: TaskType[];
-};
-
-export const MainHeader = (props: Props) => {
-  const { tasks } = props;
+export const MainHeader = () => {
+  const { tasks } = useTasksState();
   const completedTasksCount = tasks.filter((task) => task.isDone).length;
   const progressPercent = tasks.length === 0 ? 0 : (completedTasksCount / tasks.length) * 100;
 

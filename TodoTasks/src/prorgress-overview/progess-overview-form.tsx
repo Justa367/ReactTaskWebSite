@@ -1,12 +1,8 @@
 import { CardContent, Typography } from '@mui/material';
-import type { TaskType } from '../types/task-type.ts';
+import { useTasksState } from '../task-context/task-context';
 
-type Props = {
-  tasks: TaskType[];
-};
-
-export const ProgressOverviewForm = (props: Props) => {
-  const { tasks } = props;
+export const ProgressOverviewForm = () => {
+  const { tasks } = useTasksState();
   const completedTasksCount = tasks.filter((task) => task.isDone).length;
   const progressPercent = tasks.length === 0 ? 0 : (completedTasksCount / tasks.length) * 100;
 

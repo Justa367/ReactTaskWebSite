@@ -4,27 +4,26 @@ import { Box, Container, Stack } from '@mui/material';
 import { SearchAndFilterForm } from './search-and-filters/search-and-filter-form.tsx';
 import { QuickFilterForm } from './quick-filters/quick-filter-form.tsx';
 import { DisplayTaskCard } from './display-tasks/display-task-form.tsx';
-import { useState } from 'react';
-import type { TaskType } from './types/task-type.ts';
 import { ProgressOverviewForm } from './prorgress-overview/progess-overview-form.tsx';
+import { TaskStateProvider } from './task-context/task-context.tsx';
 
 export default function App() {
-  const [tasks, setTasks] = useState<Array<TaskType>>([]);
   return (
-    //TUtaj użycie Providera
-    <Box>
-      <MainHeader tasks={tasks} />
-      <Container maxWidth="md" sx={{ mt: 4 }}>
-        <Stack spacing={4}>
-          <AddTaskForm tasks={tasks} setTasks={setTasks} />
-          <SearchAndFilterForm />
-          <QuickFilterForm />
-          <DisplayTaskCard tasks={tasks} setTasks={setTasks} />
-          {/*TODO:  Progress overwiev*/}
-          <ProgressOverviewForm tasks={tasks} />
-        </Stack>
-      </Container>
-    </Box>
+    <TaskStateProvider>
+      <Box>
+        <MainHeader /> {/* jeśli potrzebuje tasks, użyj hooka */}
+        <Container maxWidth="md" sx={{ mt: 4 }}>
+          <Stack spacing={4}>
+            <AddTaskForm />
+            <SearchAndFilterForm />
+            <QuickFilterForm />
+            <DisplayTaskCard />
+            {/*TODO:  Progress overview*/}
+            <ProgressOverviewForm />
+          </Stack>
+        </Container>
+      </Box>
+    </TaskStateProvider>
   );
 }
 

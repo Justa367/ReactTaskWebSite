@@ -4,18 +4,13 @@ import { DateInput } from './date-input.tsx';
 import { FormProvider, useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import type { TaskType } from '../types/task-type.ts';
-import type { Dispatch, SetStateAction } from 'react';
 import dayjs from 'dayjs';
+import { useTasksState } from '../task-context/task-context';
 
 type FormValues = TaskType;
 
-type Props = {
-  tasks: TaskType[];
-  setTasks: Dispatch<SetStateAction<TaskType[]>>;
-};
-
-export const AddTaskForm = ({ tasks, setTasks }: Props) => {
-  //const {setTasks} = useTasksState() - wtedy juz nie są potrzebne propsy
+export const AddTaskForm = () => {
+  const { setTasks } = useTasksState();
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -26,7 +21,6 @@ export const AddTaskForm = ({ tasks, setTasks }: Props) => {
   const { handleSubmit } = form;
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(tasks);
     setTasks((prev) => {
       const updatedTasks = [...prev, data];
       console.log('All:', updatedTasks);
