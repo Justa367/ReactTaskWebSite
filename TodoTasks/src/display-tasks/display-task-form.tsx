@@ -25,31 +25,31 @@ const PriorityTypography = styled(Typography)<{ priority: TaskType['priority'] }
 );
 
 export const DisplayTaskCard = () => {
-  const { tasks, setTasks, filters } = useTasksState();
+  const { tasks, setTasks, filteredTasks } = useTasksState();
 
-  const filteredTasksWithIndex = tasks
-    .map((task, index) => ({ task, index }))
-    .filter(({ task }) => {
-      if (filters.showDone === null || filters.showDone === undefined) return true; // all
-      if (filters.showDone === true) return task.isDone === true; // Completede
-      if (filters.showDone === false) return !task.isDone; // Active
-      return true;
-    });
+  const handleToggle = (id: string) => () => {
+    const changingTaskIndex = tasks.findIndex((x) => x.id === id);
 
-  const handleToggle = (index: number) => () => {
+    if (changingTaskIndex < 0) return;
+
     setTasks((prevTasks) => {
       const newTasks = [...prevTasks];
-      newTasks[index] = {
-        ...newTasks[index],
-        isDone: !newTasks[index].isDone,
+      newTasks[changingTaskIndex] = {
+        ...newTasks[changingTaskIndex],
+        isDone: !newTasks[changingTaskIndex].isDone,
       };
       return newTasks;
     });
   };
 
-  const handleDelete = (index: number) => {
+  const handleDelete = (id: string) => {
+    const changingTaskIndex = tasks.findIndex((x) => x.id === id);
+
+    //GUARD
+    if (changingTaskIndex < 0) return;
+
     const newTasks = [...tasks];
-    newTasks.splice(index, 1);
+    newTasks.splice(changingTaskIndex, 1);
     setTasks(newTasks);
   };
 
@@ -61,7 +61,7 @@ export const DisplayTaskCard = () => {
             Your Tasks
           </Typography>
 
-          {filteredTasksWithIndex.length === 0 && (
+          {filteredTasks.length === 0 && (
             <Stack spacing={1} justifyContent="center" alignItems="center" sx={{ p: 2 }}>
               <AddTaskIcon color="action" />
               <Typography>No tasks found</Typography>
@@ -69,20 +69,20 @@ export const DisplayTaskCard = () => {
           )}
 
           <List>
-            {filteredTasksWithIndex.map(({ task, index }) => {
+            {filteredTasks.map((task) => {
               const isOverdue = task.date ? task.date.isBefore(new Date(), 'day') : false;
 
               return (
-                <ListItem
-                  key={index}
-                  className={task.isDone ? 'completed-task' : 'not'}
-                  sx={{
-                    border: isOverdue ? '2px solid red' : 'none',
-                    borderRadius: 4,
-                    mb: 2,
-                  }}
-                >
-                  <ListItemButton onClick={handleToggle(index)} dense>
+                <ListItem key={task.id} className={task.isDone ? 'completed-task' : 'not'}>
+                  <ListItemButton
+                    onClick={handleToggle(task.id)}
+                    dense
+                    sx={{
+                      padding: '8px 16px',
+                      borderRadius: 4,
+                      border: isOverdue ? '2px solid red' : 'none',
+                    }}
+                  >
                     <ListItemIcon>
                       <Checkbox
                         edge="start"
@@ -141,7 +141,7 @@ export const DisplayTaskCard = () => {
                       sx={{ color: '#eb0e2bff' }}
                       onClick={(event) => {
                         event.stopPropagation();
-                        handleDelete(index);
+                        handleDelete(task.id);
                       }}
                     >
                       <DeleteIcon />
@@ -156,9 +156,3 @@ export const DisplayTaskCard = () => {
     </Card>
   );
 };
-
-//TODO: style dla completed task done
-//TODO: ogarnąć delete task done
-//TODO: jeśli due date minęło to dodać czerwony border done
-//TODO: Add progress overview section done
-//TODO: ogarnąć wyświetlanie taska jesli nie ma due date done

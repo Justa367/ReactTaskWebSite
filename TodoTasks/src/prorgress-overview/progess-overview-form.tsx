@@ -3,6 +3,8 @@ import { useTasksState } from '../task-context/task-context';
 
 export const ProgressOverviewForm = () => {
   const { tasks } = useTasksState();
+
+  // TODO: wynieść do useTasksState i wyciagnąć tutaj i w headerze
   const completedTasksCount = tasks.filter((task) => task.isDone).length;
   const progressPercent = tasks.length === 0 ? 0 : (completedTasksCount / tasks.length) * 100;
 

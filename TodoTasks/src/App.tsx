@@ -11,14 +11,13 @@ export default function App() {
   return (
     <TaskStateProvider>
       <Box>
-        <MainHeader /> {/* jeśli potrzebuje tasks, użyj hooka */}
+        <MainHeader />
         <Container maxWidth="md" sx={{ mt: 4 }}>
           <Stack spacing={4}>
             <AddTaskForm />
             <SearchAndFilterForm />
             <QuickFilterForm />
             <DisplayTaskCard />
-            {/*TODO:  Progress overview*/}
             <ProgressOverviewForm />
           </Stack>
         </Container>
@@ -27,13 +26,6 @@ export default function App() {
   );
 }
 
-// Context API: done
-// 1. tasks - useState
-// 2. Provider
-// 3. hook - useTasksState()
-
-// później dodanie informacji do tego kontekstu jakie filtry zastosoweał użytkownik
-// przefiltrować taski i zwrócić je z kontekstu np.
 // const filteredTasks = tasks przefiltrowane przez zmienną filters
 
 //filtry: {

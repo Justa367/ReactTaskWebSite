@@ -22,7 +22,7 @@ export const AddTaskForm = () => {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     setTasks((prev) => {
-      const updatedTasks = [...prev, data];
+      const updatedTasks = [...prev, { ...data, id: dayjs().toISOString() }];
       console.log('All:', updatedTasks);
       return updatedTasks;
     });

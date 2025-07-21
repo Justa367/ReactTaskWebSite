@@ -18,7 +18,6 @@ import { useTasksState } from '../task-context/task-context';
 // };
 
 //2. sposób - używajmy tego sposobu, bo jest bardziej czytelny
-//TODO: podmienić resztę FilterButtonów na ten styl - jeśli w sx jest wiecej niż 4
 const FilterButton = styled(Button)`
     width: 150px;
     color: #1e3799;
@@ -40,6 +39,7 @@ export const QuickFilterButtons = () => {
   };
   return (
     <Stack direction="row" spacing={2} alignItems="center" sx={{ width: '100%' }}>
+      {/*TODO poprawić kolory buttonów wybranych*/}
       <FilterButton
         variant={filters.showDone === null ? 'contained' : 'outlined'}
         disableElevation
