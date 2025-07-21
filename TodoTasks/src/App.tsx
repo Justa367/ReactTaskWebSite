@@ -6,10 +6,10 @@ import { QuickFilterForm } from './quick-filters/quick-filter-form.tsx';
 import { DisplayTaskCard } from './display-tasks/display-task-form.tsx';
 import { useState } from 'react';
 import type { TaskType } from './types/task-type.ts';
+import { ProgressOverviewForm } from './prorgress-overview/progess-overview-form.tsx';
 
 export default function App() {
   const [tasks, setTasks] = useState<Array<TaskType>>([]);
-
   return (
     <Box>
       <MainHeader tasks={tasks} />
@@ -20,6 +20,7 @@ export default function App() {
           <QuickFilterForm />
           <DisplayTaskCard tasks={tasks} setTasks={setTasks} />
           {/*TODO:  Progress overwiev*/}
+          <ProgressOverviewForm tasks={tasks} />
         </Stack>
       </Container>
     </Box>

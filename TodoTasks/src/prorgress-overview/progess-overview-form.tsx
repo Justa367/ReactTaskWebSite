@@ -1,10 +1,27 @@
 import { CardContent, Typography } from '@mui/material';
+import type { TaskType } from '../types/task-type.ts';
 
-export const ProgressOverviewForm = () => {
+type Props = {
+  tasks: TaskType[];
+};
+
+export const ProgressOverviewForm = (props: Props) => {
+  const { tasks } = props;
+  const completedTasksCount = tasks.filter((task) => task.isDone).length;
+  const progressPercent = tasks.length === 0 ? 0 : (completedTasksCount / tasks.length) * 100;
+
   return (
-    <CardContent sx={{ p: 0 }}>
+    <CardContent sx={{ p: 0, textAlign: 'center' }}>
       <Typography variant="h6" fontWeight="bold" color="#1e3799" gutterBottom>
         Progress Overview
+      </Typography>
+
+      <Typography variant="subtitle1" fontWeight="medium">
+        {Math.round(progressPercent)}% Complete
+      </Typography>
+
+      <Typography variant="body2" color="text.secondary" mt={1}>
+        Keep up the great work! You've completed {completedTasksCount} out of {tasks.length} tasks.
       </Typography>
     </CardContent>
   );

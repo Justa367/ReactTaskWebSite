@@ -41,6 +41,12 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
     });
   };
 
+  const handleDelete = (index: number) => {
+    const newTasks = [...tasks];
+    newTasks.splice(index, 1);
+    setTasks(newTasks);
+  };
+
   return (
     <Card elevation={1} sx={{ borderRadius: 2, p: 2 }}>
       <Stack spacing={4}>
@@ -49,45 +55,85 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
             Your Tasks
           </Typography>
           <List>
-            {tasks.map((task, index) => (
-              // Dodać border radius
-              <ListItem className={task.isDone ? 'completed-task' : 'not'} key={index}>
-                <ListItemButton onClick={handleToggle(index)} dense>
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      checked={task.isDone ?? false}
-                      tabIndex={-1}
-                      sx={{
-                        color: '#1e3799',
-                        '&.Mui-checked': {
+            {tasks.map((task, index) => {
+              const isOverdue = task.date ? task.date.isBefore(new Date(), 'day') : false;
+
+              return (
+                <ListItem
+                  key={index}
+                  className={task.isDone ? 'completed-task' : 'not'}
+                  sx={{
+                    border: isOverdue ? '2px solid red' : 'none',
+                    borderRadius: 4,
+                    mb: 2,
+                  }}
+                >
+                  <ListItemButton onClick={handleToggle(index)} dense>
+                    <ListItemIcon>
+                      <Checkbox
+                        edge="start"
+                        checked={task.isDone ?? false}
+                        tabIndex={-1}
+                        sx={{
                           color: '#1e3799',
-                        },
-                      }}
-                    />
-                  </ListItemIcon>
-                  {/*TODO większy odstęp między wierszami*/}
-                  <ListItemText
-                    primary={
-                      <Stack direction="row" spacing={3}>
-                        <Typography fontWeight="bold" fontSize="1.1rem">
-                          {task.taskDescription}
+                          '&.Mui-checked': {
+                            color: '#1e3799',
+                          },
+                        }}
+                      />
+                    </ListItemIcon>
+
+                    {/*TODO większy odstęp między wierszami done*/}
+                    <ListItemText
+                      primary={
+                        <Stack
+                          direction="row"
+                          spacing={3}
+                          alignItems="center"
+                          sx={{ opacity: task.isDone ? 0.5 : 1 }}
+                        >
+                          <Typography
+                            fontWeight="bold"
+                            fontSize="1.1rem"
+                            sx={{
+                              textDecoration: task.isDone ? 'line-through' : 'none',
+                            }}
+                          >
+                            {task.taskDescription}
+                          </Typography>
+
+                          <PriorityTypography priority={task.priority}>
+                            {task.priority}
+                          </PriorityTypography>
+
+                          <Typography fontSize="0.85rem">
+                            {task.date
+                              ? `Due to: ${task.date.format('DD/MM/YYYY')}`
+                              : 'No due date'}
+                          </Typography>
+                        </Stack>
+                      }
+                      secondary={
+                        <Typography sx={{ opacity: task.isDone ? 0.5 : 1 }}>
+                          {`Created At: ${task.createdAt?.format('DD/MM/YYYY')}`}
                         </Typography>
-                        <PriorityTypography priority={task.priority}>
-                          {task.priority}
-                        </PriorityTypography>
-                        {/*Zmniejszyć czcionkę*/}
-                        <Typography>{`Due to: ${task.date?.format('DD/MM/YYYY')}`}</Typography>
-                      </Stack>
-                    }
-                    secondary={`Created At: ${task.createdAt?.format('DD/MM/YYYY')}`}
-                  />
-                  <IconButton edge="end" sx={{ color: '#eb0e2bff' }}>
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemButton>
-              </ListItem>
-            ))}
+                      }
+                    />
+
+                    <IconButton
+                      edge="end"
+                      sx={{ color: '#eb0e2bff' }}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleDelete(index);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
           </List>
         </CardContent>
       </Stack>
@@ -95,8 +141,8 @@ export const DisplayTaskCard = ({ tasks, setTasks }: Props) => {
   );
 };
 
-//TODO: style dla completed task
-//TODO: ogarnąć delete task
-//TODO: jeśli due date minęło to dodać czerwony border
-//TODO: Add progress overview section
-//TODO: ogarnąć wyświetlanie taska jesli nie ma due date
+//TODO: style dla completed task done
+//TODO: ogarnąć delete task done
+//TODO: jeśli due date minęło to dodać czerwony border done
+//TODO: Add progress overview section done
+//TODO: ogarnąć wyświetlanie taska jesli nie ma due date done
