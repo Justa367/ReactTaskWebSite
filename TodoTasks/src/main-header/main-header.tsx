@@ -8,9 +8,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useTasksState } from '../task-context/task-context';
 
 export const MainHeader = () => {
-  const { tasks } = useTasksState();
-  const completedTasksCount = tasks.filter((task) => task.isDone).length;
-  const progressPercent = tasks.length === 0 ? 0 : (completedTasksCount / tasks.length) * 100;
+  const { progressPercent } = useTasksState();
 
   return (
     <Box sx={{ flexGrow: 1 }}>

@@ -2,11 +2,7 @@ import { CardContent, Typography } from '@mui/material';
 import { useTasksState } from '../task-context/task-context';
 
 export const ProgressOverviewForm = () => {
-  const { tasks } = useTasksState();
-
-  // TODO: wynieść do useTasksState i wyciagnąć tutaj i w headerze
-  const completedTasksCount = tasks.filter((task) => task.isDone).length;
-  const progressPercent = tasks.length === 0 ? 0 : (completedTasksCount / tasks.length) * 100;
+  const { tasks, completedTasksCount, progressPercent } = useTasksState();
 
   return (
     <CardContent sx={{ p: 0, textAlign: 'center' }}>
@@ -19,7 +15,7 @@ export const ProgressOverviewForm = () => {
       </Typography>
 
       <Typography variant="body2" color="text.secondary" mt={1}>
-        Keep up the great work! You've completed {completedTasksCount} out of {tasks.length} tasks.
+        You've completed {completedTasksCount} out of {tasks.length} tasks.
       </Typography>
     </CardContent>
   );
