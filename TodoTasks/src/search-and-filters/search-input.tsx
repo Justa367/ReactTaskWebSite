@@ -1,7 +1,7 @@
 import { Stack, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useTasksState } from '../task-context/task-context';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 import { useState, useMemo } from 'react';
 
 export const SearchInput = () => {
@@ -10,7 +10,7 @@ export const SearchInput = () => {
 
   const debouncedSetFilter = useMemo(
     () =>
-      _.debounce((value: string) => {
+      debounce((value: string) => {
         setFilters((prev) => ({ ...prev, searchTerm: value }));
       }, 500),
     [setFilters],

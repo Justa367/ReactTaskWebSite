@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CardContent,
+  Collapse,
   Divider,
   MenuItem,
   Stack,
@@ -50,50 +51,93 @@ export const SearchAndFilterForm = () => {
 
           <SearchInput />
 
-          {showAdvanced && (
-            <>
-              <Divider />
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: 2,
+          <Collapse in={showAdvanced}>
+            <Divider sx={{ mb: 2 }} />
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 2,
+              }}
+            >
+              <TextField
+                select
+                label="Priority"
+                value={filters.priority}
+                onChange={(event) => {
+                  const value = event.target.value as '' | 'low' | 'medium' | 'high';
+                  setFilters((prev) => ({
+                    ...prev,
+                    priority: value,
+                  }));
                 }}
+                sx={{ minWidth: 180 }}
               >
-                <TextField
-                  select
-                  label="Priority"
-                  value={filters.priority}
-                  onChange={(event) => {
-                    const value = event.target.value as '' | 'low' | 'medium' | 'high';
-                    setFilters((prev) => ({
-                      ...prev,
-                      priority: value,
-                    }));
-                  }}
-                  sx={{ minWidth: 180 }}
-                >
-                  <MenuItem value="">All Priorities</MenuItem>
-                  <MenuItem value="low">Low</MenuItem>
-                  <MenuItem value="medium">Medium</MenuItem>
-                  <MenuItem value="high">High</MenuItem>
-                </TextField>
+                <MenuItem value="">All Priorities</MenuItem>
+                <MenuItem value="low">Low</MenuItem>
+                <MenuItem value="medium">Medium</MenuItem>
+                <MenuItem value="high">High</MenuItem>
+              </TextField>
 
-                <DatePicker
-                  label="Created after"
-                  value={filters.createdAfter ?? null}
-                  onChange={(newValue) => {
-                    setFilters((prev) => ({
-                      ...prev,
-                      createdAfter: newValue,
-                    }));
-                  }}
-                />
-                <DatePicker label="Created before" />
-                <MobileDateRangePicker label="Due to range" />
-              </Box>
-            </>
-          )}
+              <DatePicker
+                label="Created after"
+                value={filters.createdAfter ?? null}
+                onChange={(newValue) => {
+                  setFilters((prev) => ({
+                    ...prev,
+                    createdAfter: newValue,
+                  }));
+                }}
+              />
+              <DatePicker label="Created before" />
+              <MobileDateRangePicker label="Due to range" />
+            </Box>
+          </Collapse>
+
+          {/*{showAdvanced && (*/}
+          {/*  <>*/}
+          {/*    <Divider />*/}
+          {/*    <Box*/}
+          {/*      sx={{*/}
+          {/*        display: 'flex',*/}
+          {/*        flexWrap: 'wrap',*/}
+          {/*        gap: 2,*/}
+          {/*      }}*/}
+          {/*    >*/}
+          {/*      <TextField*/}
+          {/*        select*/}
+          {/*        label="Priority"*/}
+          {/*        value={filters.priority}*/}
+          {/*        onChange={(event) => {*/}
+          {/*          const value = event.target.value as '' | 'low' | 'medium' | 'high';*/}
+          {/*          setFilters((prev) => ({*/}
+          {/*            ...prev,*/}
+          {/*            priority: value,*/}
+          {/*          }));*/}
+          {/*        }}*/}
+          {/*        sx={{ minWidth: 180 }}*/}
+          {/*      >*/}
+          {/*        <MenuItem value="">All Priorities</MenuItem>*/}
+          {/*        <MenuItem value="low">Low</MenuItem>*/}
+          {/*        <MenuItem value="medium">Medium</MenuItem>*/}
+          {/*        <MenuItem value="high">High</MenuItem>*/}
+          {/*      </TextField>*/}
+
+          {/*      <DatePicker*/}
+          {/*        label="Created after"*/}
+          {/*        value={filters.createdAfter ?? null}*/}
+          {/*        onChange={(newValue) => {*/}
+          {/*          setFilters((prev) => ({*/}
+          {/*            ...prev,*/}
+          {/*            createdAfter: newValue,*/}
+          {/*          }));*/}
+          {/*        }}*/}
+          {/*      />*/}
+          {/*      <DatePicker label="Created before" />*/}
+          {/*      <MobileDateRangePicker label="Due to range" />*/}
+          {/*    </Box>*/}
+          {/*  </>*/}
+          {/*)}*/}
         </Stack>
       </CardContent>
     </Card>

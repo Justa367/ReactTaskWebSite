@@ -25,10 +25,3 @@ export default function App() {
     </TaskStateProvider>
   );
 }
-
-// const filteredTasks = tasks przefiltrowane przez zmienną filters
-
-//filtry: {
-//  search: "dasda",
-//  quick filters - quickFilter: "ALL" | "Active" | "Completed" -> filtracja na logikę
-// }
