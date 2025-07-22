@@ -2,11 +2,11 @@ import { Stack, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useTasksState } from '../task-context/task-context';
 
-//TODO: Change name of component on the same name as file
 export const SearchInput = () => {
   const { filters, setFilters } = useTasksState();
 
   const handleChange = (term: React.ChangeEvent<HTMLInputElement>) => {
+    //TODO: Add debounce
     setFilters((prev) => ({
       ...prev,
       searchTerm: term.target.value,

@@ -53,7 +53,7 @@ export const QuickFilterButtons = () => {
   };
   return (
     <Stack direction="row" spacing={2} alignItems="center" sx={{ width: '100%' }}>
-      {/*TODO poprawić kolory buttonów wybranych*/}
+      {/*TODO: Show count of tasks*/}
       <FilterButton
         variant={filters.showDone === null ? 'contained' : 'outlined'}
         disableElevation

@@ -12,6 +12,7 @@ export const MainHeader = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {/*TODO: Make app bar always visible when scroll*/}
       <AppBar position="static" sx={{ backgroundColor: '#1e3799' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

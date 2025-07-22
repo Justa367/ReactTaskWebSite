@@ -18,7 +18,6 @@ type TaskContextType = {
   setTasks: Dispatch<SetStateAction<TaskType[]>>;
   filters: TaskFilters;
   setFilters: Dispatch<SetStateAction<TaskFilters>>;
-  // TODO: Add types done
   filteredTasks: TaskType[];
   completedTasksCount: number;
   progressPercent: number;
