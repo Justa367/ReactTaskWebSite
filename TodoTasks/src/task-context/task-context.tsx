@@ -7,10 +7,13 @@ import {
   type PropsWithChildren,
 } from 'react';
 import type { TaskType } from '../types/task-type';
+import { Dayjs } from 'dayjs';
 
 type TaskFilters = {
   showDone: boolean | null;
   searchTerm: string;
+  createdAfter?: Dayjs | null;
+  priority: '' | 'low' | 'medium' | 'high';
 };
 
 type TaskContextType = {
@@ -26,7 +29,7 @@ type TaskContextType = {
 const TaskContext = createContext<TaskContextType>({
   tasks: [],
   setTasks: () => undefined,
-  filters: { showDone: null, searchTerm: '' },
+  filters: { showDone: null, searchTerm: '', priority: '' },
   setFilters: () => undefined,
   filteredTasks: [],
   completedTasksCount: 0,
@@ -35,7 +38,11 @@ const TaskContext = createContext<TaskContextType>({
 
 export function TaskStateProvider({ children }: PropsWithChildren) {
   const [tasks, setTasks] = useState<TaskType[]>([]);
-  const [filters, setFilters] = useState<TaskFilters>({ showDone: null, searchTerm: '' });
+  const [filters, setFilters] = useState<TaskFilters>({
+    showDone: null,
+    searchTerm: '',
+    priority: '',
+  });
 
   //TODO: Dodać search po description, i reszte z advanced po ich wyswietleniu, najpierw po searchu zająć się funkcjonalnością priority
   const filteredTasksWithIndex = tasks.filter((task: TaskType) => {
@@ -50,7 +57,14 @@ export function TaskStateProvider({ children }: PropsWithChildren) {
       .toLowerCase()
       .includes(filters.searchTerm.toLowerCase());
 
-    return matchesDoneStatus && matchesSearchTerm;
+    const matchesCreatedAfter =
+      !filters.createdAfter ||
+      task.createdAt.isSame(filters.createdAfter, 'day') ||
+      task.createdAt.isAfter(filters.createdAfter);
+
+    const matchesPriority = filters.priority === '' || task.priority === filters.priority;
+
+    return matchesDoneStatus && matchesSearchTerm && matchesCreatedAfter && matchesPriority;
   });
 
   const completedTasksCount = tasks.filter((task) => task.isDone).length;

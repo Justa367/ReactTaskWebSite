@@ -11,9 +11,9 @@ export const MainHeader = () => {
   const { progressPercent } = useTasksState();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, paddingTop: '64px' }}>
       {/*TODO: Make app bar always visible when scroll*/}
-      <AppBar position="static" sx={{ backgroundColor: '#1e3799' }}>
+      <AppBar position="fixed" sx={{ backgroundColor: '#1e3799' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <CheckCircleIcon />

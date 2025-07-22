@@ -1,16 +1,25 @@
 import { Stack, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useTasksState } from '../task-context/task-context';
+import _ from 'lodash';
+import { useState, useMemo } from 'react';
 
 export const SearchInput = () => {
-  const { filters, setFilters } = useTasksState();
+  const { setFilters } = useTasksState();
+  const [inputValue, setInputValue] = useState('');
 
-  const handleChange = (term: React.ChangeEvent<HTMLInputElement>) => {
-    //TODO: Add debounce
-    setFilters((prev) => ({
-      ...prev,
-      searchTerm: term.target.value,
-    }));
+  const debouncedSetFilter = useMemo(
+    () =>
+      _.debounce((value: string) => {
+        setFilters((prev) => ({ ...prev, searchTerm: value }));
+      }, 500),
+    [setFilters],
+  );
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setInputValue(value);
+    debouncedSetFilter(value);
   };
   return (
     <Stack
@@ -26,7 +35,7 @@ export const SearchInput = () => {
         fullWidth
         variant="outlined"
         placeholder="Search tasks..."
-        value={filters.searchTerm}
+        value={inputValue}
         onChange={handleChange}
         slotProps={{
           input: {
