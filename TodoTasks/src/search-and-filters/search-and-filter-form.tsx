@@ -18,10 +18,30 @@ import { MobileDateRangePicker } from '@mui/x-date-pickers-pro/MobileDateRangePi
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { SearchInput } from './search-input';
 import { useTasksState } from '../task-context/task-context';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export const SearchAndFilterForm = () => {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const { filters, setFilters } = useTasksState();
+
+  const hasActiveFilters =
+    filters.searchTerm !== '' ||
+    filters.priority !== '' ||
+    filters.createdAfter != null ||
+    filters.createdBefore != null ||
+    filters.dueDateRange?.[0] != null ||
+    filters.dueDateRange?.[1] != null;
+
+  const handleClearFilters = () => {
+    setFilters({
+      showDone: null,
+      searchTerm: '',
+      createdAfter: null,
+      createdBefore: null,
+      dueDateRange: [null, null],
+      priority: '',
+    });
+  };
 
   return (
     <Card elevation={1} sx={{ borderRadius: 2, p: 2 }}>
@@ -47,6 +67,24 @@ export const SearchAndFilterForm = () => {
             >
               Advanced
             </Button>
+            <Collapse
+              in={hasActiveFilters}
+              orientation="horizontal"
+              sx={{
+                display: 'inline-flex',
+                maxHeight: 24,
+                alignItems: 'center',
+              }}
+            >
+              <Button
+                variant="outlined"
+                startIcon={<ClearIcon />}
+                sx={{ color: '#1e3799', borderColor: '#1e3799' }}
+                onClick={handleClearFilters}
+              >
+                Clear Filters
+              </Button>
+            </Collapse>
           </Stack>
 
           <SearchInput />

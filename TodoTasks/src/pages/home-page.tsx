@@ -4,15 +4,18 @@ import { SearchAndFilterForm } from '../search-and-filters/search-and-filter-for
 import { QuickFilterForm } from '../quick-filters/quick-filter-form';
 import { DisplayTaskCard } from '../display-tasks/display-task-form';
 import { ProgressOverviewForm } from '../prorgress-overview/progess-overview-form';
+import { TaskStateProvider } from '../task-context/task-context';
 
 export default function HomePage() {
   return (
-    <Stack spacing={4}>
-      <AddTaskForm />
-      <SearchAndFilterForm />
-      <QuickFilterForm />
-      <DisplayTaskCard />
-      <ProgressOverviewForm />
-    </Stack>
+    <TaskStateProvider>
+      <Stack spacing={4}>
+        <AddTaskForm />
+        <SearchAndFilterForm />
+        <QuickFilterForm />
+        <DisplayTaskCard />
+        <ProgressOverviewForm />
+      </Stack>
+    </TaskStateProvider>
   );
 }

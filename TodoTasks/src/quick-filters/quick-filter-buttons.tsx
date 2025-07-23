@@ -44,10 +44,11 @@ const FilterButton = styled(Button)`
 `;
 
 export const QuickFilterButtons = () => {
-  const { tasks, filters, setFilters } = useTasksState();
-  const allCount = tasks.length;
-  const activeCount = tasks.filter((task) => !task.isDone).length;
-  const completedCount = tasks.filter((task) => task.isDone).length;
+  const { filteredTasks, filters, setFilters } = useTasksState();
+
+  const allCount = filteredTasks.length;
+  const activeCount = filteredTasks.filter((task) => !task.isDone).length;
+  const completedCount = filteredTasks.filter((task) => task.isDone).length;
 
   const handleFilterChange = (value: boolean | null) => () => {
     setFilters((prevFilters) => ({

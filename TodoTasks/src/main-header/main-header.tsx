@@ -2,12 +2,13 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useTasksState } from '../task-context/task-context';
 import { Button, styled } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useTasksState } from '../task-context/task-context';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const StyledNavLink = styled(NavLink)`
   &.active button {
@@ -17,7 +18,30 @@ const StyledNavLink = styled(NavLink)`
 
 export const MainHeader = () => {
   //TODO: Wywalić progress bar i przenieść taskStateProvider do home-page
+  const location = useLocation();
   const { progressPercent } = useTasksState();
+
+  const isHomePage = location.pathname === '/';
+
+  const renderProgressBar = () =>
+    isHomePage ? (
+      <Stack direction="row" spacing={1} alignItems="center">
+        <Typography variant="body2">Task Progress</Typography>
+        <LinearProgress
+          variant="buffer"
+          value={progressPercent}
+          valueBuffer={100}
+          sx={{
+            width: 100,
+            height: 8,
+            borderRadius: 5,
+            backgroundColor: '#4b6584',
+            '& .MuiLinearProgress-bar1': { backgroundColor: '#20bf6b' },
+            '& .MuiLinearProgress-bar2': { backgroundColor: 'white' },
+          }}
+        />
+      </Stack>
+    ) : null;
 
   return (
     <Box sx={{ flexGrow: 1, paddingTop: '64px' }}>
@@ -32,28 +56,14 @@ export const MainHeader = () => {
           <Stack direction="row" spacing={2} alignItems="center">
             {/*TODO: Dodać przycisk do homepage*/}
             {/*TODO: Dodać obsługę pokazywania, który link jest teraz aktywny*/}
-            <StyledNavLink
-              to={'/new-page'}
-              className={({ isActive, isPending }) =>
-                isPending ? 'pending' : isActive ? 'active' : ''
-              }
-            >
+            <StyledNavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
+              <Button sx={{ color: 'white' }}>Home</Button>
+            </StyledNavLink>
+            <StyledNavLink to="/new-page" className={({ isActive }) => (isActive ? 'active' : '')}>
               <Button sx={{ color: 'white' }}>New Page</Button>
             </StyledNavLink>
-            <Typography variant="body2">Task Progress</Typography>
-            <LinearProgress
-              variant="buffer"
-              value={progressPercent}
-              valueBuffer={100}
-              sx={{
-                width: 100,
-                height: 8,
-                borderRadius: 5,
-                backgroundColor: '#4b6584',
-                '& .MuiLinearProgress-bar1': { backgroundColor: '#20bf6b' },
-                '& .MuiLinearProgress-bar2': { backgroundColor: 'white' },
-              }}
-            />
+
+            {renderProgressBar()}
           </Stack>
         </Toolbar>
       </AppBar>

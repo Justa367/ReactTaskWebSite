@@ -8,6 +8,10 @@ import {
 } from 'react';
 import type { TaskType } from '../types/task-type';
 import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+
+dayjs.extend(isBetween);
 
 type TaskFilters = {
   showDone: boolean | null;
@@ -74,17 +78,9 @@ export function TaskStateProvider({ children }: PropsWithChildren) {
     const matchesDueDateRange = () => {
       const [start, end] = filters.dueDateRange || [null, null];
 
-      if (!task.date) return false;
+      if (!task.date || !start || !end) return true;
 
-      return start && end
-        ? task.date.isSame(start, 'day') ||
-            task.date.isSame(end, 'day') ||
-            (task.date.isAfter(start) && task.date.isBefore(end))
-        : start
-          ? task.date.isSame(start, 'day') || task.date.isAfter(start)
-          : end
-            ? task.date.isSame(end, 'day') || task.date.isBefore(end)
-            : true;
+      return task.date.isBetween(start, end, 'day', '[]');
     };
     return (
       matchesDoneStatus &&
