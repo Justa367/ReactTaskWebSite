@@ -74,7 +74,6 @@ export function TaskStateProvider({ children }: PropsWithChildren) {
 
     const matchesPriority = filters.priority === '' || task.priority === filters.priority;
 
-    //TODO: use isBetween from dayjs
     const matchesDueDateRange = () => {
       const [start, end] = filters.dueDateRange || [null, null];
 

@@ -17,10 +17,8 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 export const MainHeader = () => {
-  //TODO: Wywalić progress bar i przenieść taskStateProvider do home-page
   const location = useLocation();
   const { progressPercent } = useTasksState();
-
   const isHomePage = location.pathname === '/';
 
   const renderProgressBar = () =>
@@ -54,16 +52,14 @@ export const MainHeader = () => {
             </Typography>
           </Box>
           <Stack direction="row" spacing={2} alignItems="center">
-            {/*TODO: Dodać przycisk do homepage*/}
             {/*TODO: Dodać obsługę pokazywania, który link jest teraz aktywny*/}
+            {renderProgressBar()}
             <StyledNavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
               <Button sx={{ color: 'white' }}>Home</Button>
             </StyledNavLink>
             <StyledNavLink to="/new-page" className={({ isActive }) => (isActive ? 'active' : '')}>
               <Button sx={{ color: 'white' }}>New Page</Button>
             </StyledNavLink>
-
-            {renderProgressBar()}
           </Stack>
         </Toolbar>
       </AppBar>

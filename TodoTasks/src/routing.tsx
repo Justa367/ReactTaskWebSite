@@ -5,8 +5,6 @@ import Layout from './layout.tsx';
 import { NotFound } from './pages/not-found.tsx';
 
 export const Routing = () => {
-  //TODO: obsłużyć strone NOT FOUND jesli uzytkownik wejdzie na podstrone ktora nie istnieje
-  //TODO: napis 404 not found i przycisk do powrotu na home page
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

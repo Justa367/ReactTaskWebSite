@@ -2,11 +2,11 @@ import { Stack, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useTasksState } from '../task-context/task-context';
 import debounce from 'lodash/debounce';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 export const SearchInput = () => {
-  const { setFilters } = useTasksState();
-  const [inputValue, setInputValue] = useState('');
+  const { setFilters, filters } = useTasksState();
+  const [inputValue, setInputValue] = useState(filters.searchTerm);
 
   const debouncedSetFilter = useMemo(
     () =>
@@ -21,16 +21,16 @@ export const SearchInput = () => {
     setInputValue(value);
     debouncedSetFilter(value);
   };
+
+  //TODO: Poczytać o useEffect
+  useEffect(() => {
+    if (!filters.searchTerm) {
+      setInputValue('');
+    }
+  }, [filters.searchTerm]);
+
   return (
-    <Stack
-      direction="row"
-      spacing={2}
-      alignItems="center"
-      component="form"
-      noValidate
-      autoCapitalize="off"
-      sx={{ width: '100%' }}
-    >
+    <Stack direction="row" spacing={2} alignItems="center" sx={{ width: '100%' }}>
       <TextField
         fullWidth
         variant="outlined"
