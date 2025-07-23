@@ -6,10 +6,17 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useTasksState } from '../task-context/task-context';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Button, styled } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+
+const StyledNavLink = styled(NavLink)`
+  &.active button {
+    color: red;
+  }
+`;
 
 export const MainHeader = () => {
+  //TODO: Wywalić progress bar i przenieść taskStateProvider do home-page
   const { progressPercent } = useTasksState();
 
   return (
@@ -23,9 +30,16 @@ export const MainHeader = () => {
             </Typography>
           </Box>
           <Stack direction="row" spacing={2} alignItems="center">
-            <Button component={Link} to="/newpage" sx={{ color: 'white' }}>
-              New Page
-            </Button>
+            {/*TODO: Dodać przycisk do homepage*/}
+            {/*TODO: Dodać obsługę pokazywania, który link jest teraz aktywny*/}
+            <StyledNavLink
+              to={'/new-page'}
+              className={({ isActive, isPending }) =>
+                isPending ? 'pending' : isActive ? 'active' : ''
+              }
+            >
+              <Button sx={{ color: 'white' }}>New Page</Button>
+            </StyledNavLink>
             <Typography variant="body2">Task Progress</Typography>
             <LinearProgress
               variant="buffer"

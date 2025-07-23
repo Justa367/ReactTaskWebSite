@@ -37,7 +37,7 @@ export const SearchAndFilterForm = () => {
             >
               Search & Filter Tasks
             </Typography>
-
+            {/*TODO: Dodać przycisk usuwający wszystkie zastosowane filtry z tego komponentu*/}
             <Button
               variant="outlined"
               startIcon={<FilterListIcon />}

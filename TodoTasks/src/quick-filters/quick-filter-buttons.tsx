@@ -57,7 +57,7 @@ export const QuickFilterButtons = () => {
   };
   return (
     <Stack direction="row" spacing={2} alignItems="center" sx={{ width: '100%' }}>
-      {/*TODO: Show count of tasks*/}
+      {/*TODO: Show count of filtered tasks*/}
       <FilterButton
         variant={filters.showDone === null ? 'contained' : 'outlined'}
         disableElevation

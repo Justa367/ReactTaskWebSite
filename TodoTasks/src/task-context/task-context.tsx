@@ -46,7 +46,6 @@ export function TaskStateProvider({ children }: PropsWithChildren) {
     priority: '',
   });
 
-  //TODO: Dodać search po description, i reszte z advanced po ich wyswietleniu, najpierw po searchu zająć się funkcjonalnością priority
   const filteredTasksWithIndex = tasks.filter((task: TaskType) => {
     const matchesDoneStatus =
       filters.showDone === null || filters.showDone === undefined
@@ -71,6 +70,7 @@ export function TaskStateProvider({ children }: PropsWithChildren) {
 
     const matchesPriority = filters.priority === '' || task.priority === filters.priority;
 
+    //TODO: use isBetween from dayjs
     const matchesDueDateRange = () => {
       const [start, end] = filters.dueDateRange || [null, null];
 
@@ -92,7 +92,7 @@ export function TaskStateProvider({ children }: PropsWithChildren) {
       matchesCreatedAfter &&
       matchesCreatedBefore &&
       matchesPriority &&
-      matchesDueDateRange
+      matchesDueDateRange()
     );
   });
 
