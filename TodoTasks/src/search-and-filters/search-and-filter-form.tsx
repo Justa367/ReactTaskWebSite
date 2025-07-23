@@ -80,7 +80,17 @@ export const SearchAndFilterForm = () => {
               </TextField>
 
               <DatePicker
-                label="Created after"
+                label="Created Before"
+                value={filters.createdBefore ?? null}
+                onChange={(newValue) => {
+                  setFilters((prev) => ({
+                    ...prev,
+                    createdBefore: newValue,
+                  }));
+                }}
+              />
+              <DatePicker
+                label="Created After"
                 value={filters.createdAfter ?? null}
                 onChange={(newValue) => {
                   setFilters((prev) => ({
@@ -89,8 +99,15 @@ export const SearchAndFilterForm = () => {
                   }));
                 }}
               />
-              <DatePicker label="Created before" />
-              <MobileDateRangePicker label="Due to range" />
+              <MobileDateRangePicker
+                value={filters.dueDateRange || [null, null]}
+                onChange={(newRange) => {
+                  setFilters((prev) => ({
+                    ...prev,
+                    dueDateRange: newRange,
+                  }));
+                }}
+              />
             </Box>
           </Collapse>
 

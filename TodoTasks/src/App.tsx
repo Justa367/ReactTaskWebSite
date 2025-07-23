@@ -1,27 +1,24 @@
 import { MainHeader } from './main-header/main-header.tsx';
-import { AddTaskForm } from './add-task-form/add-task-form.tsx';
-import { Box, Container, Stack } from '@mui/material';
-import { SearchAndFilterForm } from './search-and-filters/search-and-filter-form.tsx';
-import { QuickFilterForm } from './quick-filters/quick-filter-form.tsx';
-import { DisplayTaskCard } from './display-tasks/display-task-form.tsx';
-import { ProgressOverviewForm } from './prorgress-overview/progess-overview-form.tsx';
+import { Box, Container } from '@mui/material';
 import { TaskStateProvider } from './task-context/task-context.tsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { NewPage } from './pages/new-page.tsx';
+import HomePage from './pages/home-page.tsx';
 
 export default function App() {
   return (
-    <TaskStateProvider>
-      <Box>
-        <MainHeader />
-        <Container maxWidth="md" sx={{ mt: 4 }}>
-          <Stack spacing={4}>
-            <AddTaskForm />
-            <SearchAndFilterForm />
-            <QuickFilterForm />
-            <DisplayTaskCard />
-            <ProgressOverviewForm />
-          </Stack>
-        </Container>
-      </Box>
-    </TaskStateProvider>
+    <BrowserRouter>
+      <TaskStateProvider>
+        <Box>
+          <MainHeader />
+          <Container maxWidth="md" sx={{ mt: 4 }}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/newpage" element={<NewPage />} />
+            </Routes>
+          </Container>
+        </Box>
+      </TaskStateProvider>
+    </BrowserRouter>
   );
 }

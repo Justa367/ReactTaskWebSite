@@ -13,6 +13,8 @@ type TaskFilters = {
   showDone: boolean | null;
   searchTerm: string;
   createdAfter?: Dayjs | null;
+  createdBefore?: Dayjs | null;
+  dueDateRange?: [Dayjs | null, Dayjs | null];
   priority: '' | 'low' | 'medium' | 'high';
 };
 
@@ -62,9 +64,36 @@ export function TaskStateProvider({ children }: PropsWithChildren) {
       task.createdAt.isSame(filters.createdAfter, 'day') ||
       task.createdAt.isAfter(filters.createdAfter);
 
+    const matchesCreatedBefore =
+      !filters.createdBefore ||
+      task.createdAt.isSame(filters.createdBefore, 'day') ||
+      task.createdAt.isBefore(filters.createdBefore);
+
     const matchesPriority = filters.priority === '' || task.priority === filters.priority;
 
-    return matchesDoneStatus && matchesSearchTerm && matchesCreatedAfter && matchesPriority;
+    const matchesDueDateRange = () => {
+      const [start, end] = filters.dueDateRange || [null, null];
+
+      if (!task.date) return false;
+
+      return start && end
+        ? task.date.isSame(start, 'day') ||
+            task.date.isSame(end, 'day') ||
+            (task.date.isAfter(start) && task.date.isBefore(end))
+        : start
+          ? task.date.isSame(start, 'day') || task.date.isAfter(start)
+          : end
+            ? task.date.isSame(end, 'day') || task.date.isBefore(end)
+            : true;
+    };
+    return (
+      matchesDoneStatus &&
+      matchesSearchTerm &&
+      matchesCreatedAfter &&
+      matchesCreatedBefore &&
+      matchesPriority &&
+      matchesDueDateRange
+    );
   });
 
   const completedTasksCount = tasks.filter((task) => task.isDone).length;

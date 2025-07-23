@@ -44,7 +44,11 @@ const FilterButton = styled(Button)`
 `;
 
 export const QuickFilterButtons = () => {
-  const { filters, setFilters } = useTasksState();
+  const { tasks, filters, setFilters } = useTasksState();
+  const allCount = tasks.length;
+  const activeCount = tasks.filter((task) => !task.isDone).length;
+  const completedCount = tasks.filter((task) => task.isDone).length;
+
   const handleFilterChange = (value: boolean | null) => () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -59,21 +63,21 @@ export const QuickFilterButtons = () => {
         disableElevation
         onClick={handleFilterChange(null)}
       >
-        All
+        All ({allCount})
       </FilterButton>
       <FilterButton
         variant={filters.showDone === false ? 'contained' : 'outlined'}
         disableElevation
         onClick={handleFilterChange(false)}
       >
-        Active
+        Active ({activeCount})
       </FilterButton>
       <FilterButton
         variant={filters.showDone === true ? 'contained' : 'outlined'}
         disableElevation
         onClick={handleFilterChange(true)}
       >
-        Completed
+        Completed ({completedCount})
       </FilterButton>
     </Stack>
   );

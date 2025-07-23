@@ -6,6 +6,8 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useTasksState } from '../task-context/task-context';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export const MainHeader = () => {
   const { progressPercent } = useTasksState();
@@ -21,6 +23,9 @@ export const MainHeader = () => {
             </Typography>
           </Box>
           <Stack direction="row" spacing={2} alignItems="center">
+            <Button component={Link} to="/newpage" sx={{ color: 'white' }}>
+              New Page
+            </Button>
             <Typography variant="body2">Task Progress</Typography>
             <LinearProgress
               variant="buffer"
