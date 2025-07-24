@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
+import { Typography, Stack, CircularProgress } from '@mui/material';
+import { TemperatureTable } from '../new-page-components/temperature-table';
+import { TemperatureChart } from '../new-page-components/temperature-chart';
+import type { TemperatureRowType } from '../types/temperature';
 import axios from 'axios';
-import { Box, Typography, CircularProgress } from '@mui/material';
-import { DataGrid, type GridColDef } from '@mui/x-data-grid';
+import dayjs from 'dayjs';
 
 export const NewPage = () => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<TemperatureRowType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const columns: GridColDef[] = [
-    { field: 'time', headerName: 'Hour', flex: 1 },
-    { field: 'temperature', headerName: 'Temperature (°C)', flex: 1 },
-  ];
 
   useEffect(() => {
     axios
@@ -20,7 +18,19 @@ export const NewPage = () => {
       )
       .then((response) => {
         console.log('API response:', response.data);
-        setData(response.data);
+
+        const timeArr = response.data.hourly.time;
+        const tempArr = response.data.hourly.temperature_2m;
+
+        const transformedData: TemperatureRowType[] = timeArr.map(
+          (time: string, index: number) => ({
+            id: index,
+            time: dayjs(time),
+            temperature: tempArr[index],
+          }),
+        );
+
+        setData(transformedData);
         setLoading(false);
       })
       .catch((err) => {
@@ -29,20 +39,19 @@ export const NewPage = () => {
       });
   }, []);
 
-  const rows = data.hourly.time.map((time: string, index: number) => ({
-    id: index,
-    time,
-    temperature: data.hourly.temperature_2m[index],
-  }));
+  if (loading) return <CircularProgress />;
+  if (error) return <Typography color="error">{error}</Typography>;
 
   return (
-    <Box sx={{ p: 4 }}>
-      <Typography variant="h5" gutterBottom>
+    <Stack sx={{ p: 4 }}>
+      <Typography variant="h5" align="center">
         Temperature in Japan
       </Typography>
-      <Box sx={{ height: 500, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} />
-      </Box>
-    </Box>
+      <TemperatureTable rows={data} />
+      <Typography variant="h5" align="center">
+        Temperature Plot
+      </Typography>
+      <TemperatureChart data={data} />
+    </Stack>
   );
 };
