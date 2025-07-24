@@ -1,7 +1,7 @@
-import type dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
 
 export type TemperatureRowType = {
   id: number;
-  time: dayjs.Dayjs;
+  time: Dayjs;
   temperature: number;
 };

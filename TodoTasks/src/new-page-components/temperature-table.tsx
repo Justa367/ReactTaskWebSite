@@ -11,9 +11,11 @@ export const TemperatureTable = ({ rows }: TemperatureTableProps) => (
     <DataGrid
       rows={rows}
       columns={[
-        { field: 'time', headerName: 'Hour', flex: 1 },
+        { field: 'time', headerName: 'Time', flex: 1 },
         { field: 'temperature', headerName: 'Temperature (°C)', flex: 1 },
       ]}
+      checkboxSelection
+      disableRowSelectionOnClick
     />
   </Stack>
 );
