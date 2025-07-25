@@ -24,10 +24,9 @@ export const TemperatureChart = ({ japanData, canadaData, germanyData }: Tempera
     <ResponsiveContainer width="100%" height={500}>
       <LineChart margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
         <XAxis dataKey="timeStr" />
-        <YAxis />
+        <YAxis domain={['auto', 'auto']} />
         <CartesianGrid stroke="#eee" strokeDasharray="4 1 2" />
         <Tooltip />
-
         <Line
           type="monotone"
           data={formatData(japanData)}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography, Stack, CircularProgress } from '@mui/material';
 import { TemperatureTable } from '../new-page-components/temperature-table';
 import { TemperatureChart } from '../new-page-components/temperature-chart';
@@ -9,8 +9,9 @@ import {
   fetchGermanTemperature,
 } from '../new-page-components/apis';
 import { TemperatureBarChart } from '../new-page-components/temperature-bar-chart';
+import type { GridRowSelectionModel } from '@mui/x-data-grid';
 
-type MultiCountryData = {
+export type MultiCountryData = {
   japan: TemperatureRowType[];
   canada: TemperatureRowType[];
   germany: TemperatureRowType[];
@@ -20,6 +21,11 @@ export const NewPage = () => {
   const [data, setData] = useState<MultiCountryData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [rowSelectionModel, setRowSelectionModel] = React.useState<GridRowSelectionModel>({
+    type: 'include',
+    ids: new Set(),
+  });
 
   useEffect(() => {
     Promise.all([fetchJapanTemperature(), fetchCanadaTemperature(), fetchGermanTemperature()])
@@ -40,7 +46,12 @@ export const NewPage = () => {
       <Typography variant="h5" align="center">
         Temperature in Japan
       </Typography>
-      <TemperatureTable rows={data?.japan ?? []} />
+      <TemperatureTable
+        rows={data?.japan ?? []}
+        rowSelectionModel={rowSelectionModel}
+        setRowSelectionModel={setRowSelectionModel}
+        setData={setData}
+      />
       <Typography variant="h5" align="center">
         Temperature Plot for Japan, Canada and Germany
       </Typography>
