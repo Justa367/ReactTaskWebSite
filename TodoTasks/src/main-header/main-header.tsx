@@ -12,7 +12,14 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 const StyledNavLink = styled(NavLink)`
   &.active button {
-    color: red;
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+} 
+    button:hover {
+      color: #ddd; 
+      transition: color 0.3s ease;
+    }
   }
 `;
 
