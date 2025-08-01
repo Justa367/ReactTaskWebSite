@@ -51,6 +51,7 @@ export const NewPage = () => {
         rowSelectionModel={rowSelectionModel}
         setRowSelectionModel={setRowSelectionModel}
         setData={setData}
+        countryKey="japan"
       />
       <Typography variant="h5" align="center">
         Temperature Plot for Japan, Canada and Germany

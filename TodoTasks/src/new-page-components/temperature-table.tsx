@@ -3,14 +3,15 @@ import type { TemperatureRowType } from '../types/temperature';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Toolbar from '@mui/material/Toolbar';
 import { DataGrid, type GridRowSelectionModel } from '@mui/x-data-grid';
-import { type Dispatch } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 import type { MultiCountryData } from '../pages/new-page';
 
 type TemperatureTableProps = {
   rows: TemperatureRowType[];
   rowSelectionModel: GridRowSelectionModel;
   setRowSelectionModel: Dispatch<GridRowSelectionModel>;
-  setData: Dispatch<MultiCountryData | null>;
+  setData: Dispatch<SetStateAction<MultiCountryData | null>>;
+  countryKey: keyof MultiCountryData;
 };
 
 declare module '@mui/x-data-grid' {
@@ -34,6 +35,7 @@ export const TemperatureTable = ({
   rowSelectionModel,
   setRowSelectionModel,
   setData,
+  countryKey,
 }: TemperatureTableProps) => {
   const indexedRows = rows.map((row, idx) => ({
     ...row,
@@ -42,8 +44,23 @@ export const TemperatureTable = ({
   }));
 
   const handleDeleteItems = () => {
-    // setData
-    console.log(rowSelectionModel);
+    const selectedIds = Array.from((rowSelectionModel as any).ids ?? new Set());
+
+    const newRows = rows.filter((row, idx) => {
+      const id = row.id ?? idx;
+      return !selectedIds.includes(id);
+    });
+
+    setData((prevData: any) => {
+      if (!prevData) return null;
+
+      return {
+        ...prevData,
+        [countryKey]: newRows,
+      };
+    });
+
+    setRowSelectionModel({ type: 'include', ids: new Set() });
   };
 
   return (
