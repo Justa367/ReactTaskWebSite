@@ -44,6 +44,12 @@ export const TemperatureTable = ({
   }));
 
   const handleDeleteItems = () => {
+    // if (rowSelectionModel.type === 'exclude') {
+    //   setData([]);
+    //   setRowSelectionModel({ type: 'include', ids: new Set() });
+    //
+    //   return;
+    // }
     const selectedIds = Array.from((rowSelectionModel as any).ids ?? new Set());
 
     const newRows = rows.filter((row, idx) => {
@@ -68,6 +74,7 @@ export const TemperatureTable = ({
       <DataGrid
         showToolbar
         slots={{
+          //TODO zmienic warunek jesli wszystkie zaznaczone
           toolbar: rowSelectionModel.ids.size > 0 ? CustomToolbar : () => <></>,
         }}
         slotProps={{
