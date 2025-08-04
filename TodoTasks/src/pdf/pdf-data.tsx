@@ -1,10 +1,3 @@
-import CloudQueueIcon from '@mui/icons-material/CloudQueue';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import CloudIcon from '@mui/icons-material/Cloud';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import GrainIcon from '@mui/icons-material/Grain';
-import FilterDramaIcon from '@mui/icons-material/FilterDrama';
-
 import type { PdfData } from '../types/pdf-data-type';
 
 export const weatherPdfData: PdfData[] = [
