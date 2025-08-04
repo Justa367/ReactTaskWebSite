@@ -66,6 +66,12 @@ export const MainHeader = () => {
             </StyledNavLink>
             <StyledNavLink to="/new-page" className={({ isActive }) => (isActive ? 'active' : '')}>
               <Button sx={{ color: 'white' }}>New Page</Button>
+              <StyledNavLink
+                to="/pdf-viewer"
+                className={({ isActive }) => (isActive ? 'active' : '')}
+              >
+                <Button sx={{ color: 'white' }}>Pdf Document</Button>
+              </StyledNavLink>
             </StyledNavLink>
           </Stack>
         </Toolbar>

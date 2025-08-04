@@ -3,6 +3,7 @@ import HomePage from './pages/home-page.tsx';
 import { NewPage } from './pages/new-page.tsx';
 import Layout from './layout.tsx';
 import { NotFound } from './pages/not-found.tsx';
+import { PdfView } from './pages/pdf-viewer.tsx';
 
 export const Routing = () => {
   return (
@@ -10,6 +11,7 @@ export const Routing = () => {
       <Route path="/" element={<Layout />}>
         <Route index path="/" element={<HomePage />} />
         <Route path="/new-page" element={<NewPage />} />
+        <Route path="/pdf-viewer" element={<PdfView />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
