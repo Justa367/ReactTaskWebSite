@@ -10,6 +10,8 @@ import {
 } from '../new-page-components/apis';
 import { TemperatureBarChart } from '../new-page-components/temperature-bar-chart';
 import type { GridRowSelectionModel } from '@mui/x-data-grid';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { MyDocument } from '../pdf/pdf-document';
 
 export type MultiCountryData = {
   japan: TemperatureRowType[];
@@ -65,6 +67,13 @@ export const NewPage = () => {
         Min and Max Bar Chart for Temperature in Canada
       </Typography>
       <TemperatureBarChart canadaData={data?.canada ?? []} />
+      <PDFDownloadLink
+        document={<MyDocument />}
+        fileName="temperature-report.pdf"
+        style={{ textDecoration: 'none', color: 'blue', marginTop: 20 }}
+      >
+        {({ blob, url, loading, error }) => (loading ? 'Loading' : 'Download pdf')}
+      </PDFDownloadLink>
     </Stack>
   );
 };
