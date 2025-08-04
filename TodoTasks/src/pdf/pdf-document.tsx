@@ -1,7 +1,12 @@
 import { Document, Page, View, Text } from '@react-pdf/renderer';
 import { styles } from './pdf-style';
+import type { PdfData } from '../types/pdf-data-type';
 
-export const MyDocument = () => (
+type WeatherDataProps = {
+  data: PdfData[];
+};
+
+export const MyDocument = ({ data }: WeatherDataProps) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>
