@@ -31,8 +31,8 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-    border: '1px solid #E2E8F0',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
   },
   cardTitle: {
     fontSize: 10,
@@ -45,8 +45,77 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 2,
   },
+  blueValue: {
+    color: '#2563EB',
+  },
+  greenValue: {
+    color: '#16A34A',
+  },
+  purpleValue: {
+    color: '#9333EA',
+  },
   cardDesc: {
     fontSize: 10,
     color: '#64748B',
+  },
+  dataTable: {
+    marginTop: 30,
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
+    borderTopStyle: 'solid',
+    width: '100%',
+    padding: 10,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    borderRadius: 8,
+  },
+  dataTableHeader: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
+    borderBottomStyle: 'solid',
+    backgroundColor: '#F1F5F9',
+    paddingVertical: 8,
+    paddingHorizontal: 6,
+  },
+  dataTableTitle: {
+    marginBottom: 4,
+    paddingVertical: 8,
+  },
+  dataTableRow: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
+    borderBottomStyle: 'solid',
+    paddingVertical: 8,
+    paddingHorizontal: 6,
+  },
+  dataTableRowAlt: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
+    borderBottomStyle: 'solid',
+    backgroundColor: '#F8FAFC',
+    paddingVertical: 8,
+    paddingHorizontal: 6,
+  },
+  dataTableCell: {
+    fontSize: 10,
+    flex: 1,
+    paddingHorizontal: 4,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+
+  dataTableData: {
+    fontSize: 10,
+    flex: 1,
+    paddingHorizontal: 4,
+    textAlign: 'center',
+  },
+
+  boldCell: {
+    fontWeight: 'bold',
   },
 });
