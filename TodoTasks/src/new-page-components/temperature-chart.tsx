@@ -9,7 +9,7 @@ import {
   Legend,
 } from 'recharts';
 import type { TemperatureRowType } from '../types/temperature';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { toJpeg } from 'html-to-image';
 import { Button, Stack, Typography } from '@mui/material';
 import { useChartImage } from '../chat-img-context/chat-img-context';
@@ -23,6 +23,7 @@ type TemperatureChartProps = {
 export const TemperatureChart = ({ japanData, canadaData, germanyData }: TemperatureChartProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const { image, setImage } = useChartImage();
+
   const handleExport = () => {
     if (ref.current === null) return;
     requestAnimationFrame(() => {
@@ -36,6 +37,10 @@ export const TemperatureChart = ({ japanData, canadaData, germanyData }: Tempera
       });
     });
   };
+
+  useEffect(() => {
+    handleExport();
+  }, [image]);
 
   const formatData = (data: TemperatureRowType[]) =>
     data.map((row) => ({ ...row, timeStr: row.time.format('DD.MM HH:mm') }));
