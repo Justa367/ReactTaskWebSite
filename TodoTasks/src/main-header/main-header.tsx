@@ -67,12 +67,12 @@ export const MainHeader = () => {
             <StyledNavLink to="/new-page" className={({ isActive }) => (isActive ? 'active' : '')}>
               <Button sx={{ color: 'white' }}>New Page</Button>
             </StyledNavLink>
-            <StyledNavLink
+            {/* <StyledNavLink
               to="/pdf-viewer"
               className={({ isActive }) => (isActive ? 'active' : '')}
             >
               <Button sx={{ color: 'white' }}>Pdf Document</Button>
-            </StyledNavLink>
+            </StyledNavLink> */}
           </Stack>
         </Toolbar>
       </AppBar>

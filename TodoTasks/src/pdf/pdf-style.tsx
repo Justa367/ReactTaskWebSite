@@ -118,4 +118,133 @@ export const styles = StyleSheet.create({
   boldCell: {
     fontWeight: 'bold',
   },
+  forecastWrapper: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    borderColor: '#E2E8F0',
+    borderWidth: 1,
+  },
+  forecastDayCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
+    borderBottomStyle: 'solid',
+  },
+  forecastDayCardLast: {
+    borderBottomWidth: 0,
+  },
+  forecastIcon: {
+    fontSize: 12,
+    marginRight: 8,
+  },
+  forecastTempText: {
+    fontSize: 10,
+    color: '#DC2626',
+    flex: 1,
+    textAlign: 'center',
+  },
+  forecastNightTempText: {
+    fontSize: 10,
+    color: '#2563EB',
+    flex: 1,
+    textAlign: 'center',
+  },
+  forecastHumidityText: {
+    fontSize: 10,
+    color: '#0F172A',
+    flex: 1,
+    textAlign: 'center',
+  },
+
+  seasonalTempText: {
+    fontSize: 10,
+    color: '#ca5b5bff',
+    flex: 1,
+    textAlign: 'center',
+  },
+  seasonalRainText: {
+    fontSize: 10,
+    color: '#2c5abdff',
+    flex: 1,
+    textAlign: 'center',
+  },
+  seasonalIdkText: {
+    fontSize: 10,
+    color: '#b8932fff',
+    flex: 1,
+    textAlign: 'center',
+  },
+  tablesRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    gap: 10,
+  },
+  halfWidth: {
+    width: '48%',
+  },
+  alertWrapper: {
+    marginTop: 20,
+    padding: 14,
+    backgroundColor: '#FFF7ED',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#5416e6ff',
+  },
+
+  alertTitle: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    marginBottom: 4,
+    color: '#B91C1C',
+  },
+
+  alertSubTitle: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    marginBottom: 6,
+    color: '#B91C1C',
+  },
+
+  alertTextBold: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    marginBottom: 2,
+    color: '#9F2D00',
+  },
+
+  alertText: {
+    fontSize: 10,
+    color: '#B45309',
+    marginBottom: 6,
+  },
+  container: {
+    marginVertical: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#d0d0d0',
+    borderRadius: 8,
+    alignItems: 'center',
+    backgroundColor: '#f7f7f7',
+  },
+  titleText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  pdfImage: {
+    width: '100%',
+    height: 240,
+    resizeMode: 'contain',
+  },
+  noImageText: {
+    fontSize: 12,
+    color: '#999',
+    fontStyle: 'italic',
+  },
 });

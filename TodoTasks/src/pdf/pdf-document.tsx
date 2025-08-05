@@ -1,7 +1,8 @@
 import { Document, Page, View, Text, Image as PdfImage } from '@react-pdf/renderer';
 import { styles } from './pdf-style';
-import { weatherPdfData } from './pdf-data';
-
+import { weatherPdfData } from './pdf-data/weatherData';
+import { weekForecastData } from './pdf-data/week-forecast';
+import { SeasonalClimateTrends } from './pdf-data/seasonal-climate-trend';
 type MyDocumentProps = {
   image: string | null;
 };
@@ -67,14 +68,74 @@ export const MyDocument = ({ image }: MyDocumentProps) => {
             </View>
           ))}
         </View>
+
         {image ? (
-          <View>
-            <Text>Chart Image:</Text>
-            <PdfImage src={image} style={{ width: 300, height: 200 }} />
+          <View style={styles.container}>
+            <Text style={styles.titleText}>Chart Image:</Text>
+            <PdfImage src={image} style={styles.pdfImage} />
           </View>
         ) : (
-          <Text>No image available</Text>
+          <Text style={styles.noImageText}>No image available</Text>
         )}
+
+        <View style={styles.tablesRow}>
+          <View style={[styles.forecastWrapper, styles.halfWidth]}>
+            <View style={styles.dataTableTitle}>
+              <Text style={styles.cardTitle}>7-Day Forecast (Tokyo)</Text>
+              <Text style={styles.cardDesc}>Extended weather outlook</Text>
+            </View>
+            {weekForecastData.map((data, index) => (
+              <View
+                key={index}
+                style={{
+                  ...styles.forecastDayCard,
+                  ...(index === weekForecastData.length - 1 ? styles.forecastDayCardLast : {}),
+                }}
+              >
+                <Text style={styles.dataTableCell}>{data.day}</Text>
+                <Text style={styles.forecastTempText}>{data.temperatureDay}°C</Text>
+                <Text style={styles.forecastNightTempText}>{data.temperatureNight}°C</Text>
+                <Text style={styles.forecastHumidityText}>{data.humidity}%</Text>
+              </View>
+            ))}
+          </View>
+
+          <View style={[styles.forecastWrapper, styles.halfWidth]}>
+            <View style={styles.dataTableTitle}>
+              <Text style={styles.cardTitle}>Seasonal Climate Trends</Text>
+              <Text style={styles.cardDesc}>7-month weather patterns</Text>
+            </View>
+            {SeasonalClimateTrends.map((data, index) => (
+              <View
+                key={index}
+                style={{
+                  ...styles.forecastDayCard,
+                  ...(index === SeasonalClimateTrends.length - 1 ? styles.forecastDayCardLast : {}),
+                }}
+              >
+                <Text style={styles.dataTableCell}>{data.month}</Text>
+                <Text style={styles.seasonalTempText}>{data.temperature}°C</Text>
+                <Text style={styles.seasonalRainText}>{data.rain}mm</Text>
+                <Text style={styles.seasonalIdkText}>{data.idk} sunny</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.alertWrapper}>
+          <Text style={styles.alertTitle}>Weather Alerts</Text>
+          <Text style={styles.alertSubTitle}>Current advisories and warnings</Text>
+
+          <Text style={styles.alertTextBold}>Winter Weather Advisory – Hokkaido</Text>
+          <Text style={styles.alertText}>
+            Snow accumulation expected: 10–20 cm. Travel conditions may be affected.
+          </Text>
+
+          <Text style={styles.alertTextBold}>Strong Wind Warning – Pacific Coast</Text>
+          <Text style={styles.alertText}>
+            Sustained winds up to 40 km/h expected along coastal areas.
+          </Text>
+        </View>
       </Page>
     </Document>
   );

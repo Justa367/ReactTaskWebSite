@@ -11,7 +11,6 @@ import {
 import type { TemperatureRowType } from '../types/temperature';
 import { useEffect, useRef } from 'react';
 import { toJpeg } from 'html-to-image';
-import { Button, Stack, Typography } from '@mui/material';
 import { useChartImage } from '../chat-img-context/chat-img-context';
 
 type TemperatureChartProps = {
@@ -47,10 +46,6 @@ export const TemperatureChart = ({ japanData, canadaData, germanyData }: Tempera
 
   return (
     <>
-      <Button variant="contained" onClick={handleExport}>
-        Export chart to jpg
-      </Button>
-
       <div ref={ref} style={{ width: '100%', height: 500 }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
@@ -95,13 +90,6 @@ export const TemperatureChart = ({ japanData, canadaData, germanyData }: Tempera
           </LineChart>
         </ResponsiveContainer>
       </div>
-
-      {image && (
-        <Stack mt={5}>
-          <Typography>Exported jpg</Typography>
-          <img src={image} alt="Exported jpg" style={{ maxWidth: '100%', border: '1px solid' }} />
-        </Stack>
-      )}
     </>
   );
 };

@@ -1,0 +1,46 @@
+import type { weekForecastType } from "../../types/week-frecast-type";
+
+export const weekForecastData:weekForecastType[]=[
+    {
+        day:"Monday",
+        temperatureDay:15,
+        temperatureNight:8,
+        humidity:0
+    },
+        {
+        day:"Tuesday",
+        temperatureDay:13,
+        temperatureNight:6,
+        humidity:10
+    },
+        {
+        day:"Wednesday",
+        temperatureDay:11,
+        temperatureNight:4,
+        humidity:30
+    },
+        {
+        day:"Thursday",
+        temperatureDay:9,
+        temperatureNight:2,
+        humidity:60
+    },
+        {
+        day:"Friday",
+        temperatureDay:12,
+        temperatureNight:5,
+        humidity:20
+    },
+        {
+        day:"Saturday",
+        temperatureDay:14,
+        temperatureNight:7,
+        humidity:15
+    },
+        {
+        day:"Sunday",
+        temperatureDay:16,
+        temperatureNight:5,
+        humidity:5
+    },
+]

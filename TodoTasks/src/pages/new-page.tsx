@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Stack, CircularProgress } from '@mui/material';
+import { Typography, Stack, CircularProgress, Button } from '@mui/material';
 import { TemperatureTable } from '../new-page-components/temperature-table';
 import { TemperatureChart } from '../new-page-components/temperature-chart';
 import type { TemperatureRowType } from '../types/temperature';
@@ -10,6 +10,7 @@ import {
 } from '../new-page-components/apis';
 import { TemperatureBarChart } from '../new-page-components/temperature-bar-chart';
 import type { GridRowSelectionModel } from '@mui/x-data-grid';
+import { NavLink } from 'react-router';
 
 export type MultiCountryData = {
   japan: TemperatureRowType[];
@@ -43,7 +44,12 @@ export const NewPage = () => {
   if (error) return <Typography color="error">{error}</Typography>;
   return (
     <Stack sx={{ p: 4 }}>
-      <Typography variant="h5" align="center">
+      <Stack mb={2} alignItems={'center'}>
+        <NavLink to="/pdf-viewer">
+          <Button variant={'outlined'}>Export temperature data to pdf</Button>
+        </NavLink>
+      </Stack>
+      <Typography variant="h5" align="center" sx={{ padding: 5 }}>
         Temperature in Japan
       </Typography>
       <TemperatureTable

@@ -1,0 +1,46 @@
+import type { seasonalClimateTrendsType } from "../../types/seasonal-climate-trends-type";
+
+export const SeasonalClimateTrends: seasonalClimateTrendsType[] = [
+    {
+        month:"October",
+        temperature:18,
+        rain:85,
+        idk:18
+    },
+    {
+        month:"November",
+        temperature:13,
+        rain:165,
+        idk:18
+    },
+    {
+        month:"December",
+        temperature:8,
+        rain:45,
+        idk:18
+    },
+    {
+        month:"January",
+        temperature:5,
+        rain:55,
+        idk:18
+    },
+    {
+        month:"February",
+        temperature:7,
+        rain:70,
+        idk:18
+    },
+    {
+        month:"March",
+        temperature:12,
+        rain:115,
+        idk:18
+    },
+        {
+        month:"April",
+        temperature:13,
+        rain:95,
+        idk:20
+    },
+]

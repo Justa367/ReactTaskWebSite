@@ -1,4 +1,4 @@
-import type { PdfData } from '../types/pdf-data-type';
+import { type PdfData } from '../../types/pdf-data-type';
 
 export const weatherPdfData: PdfData[] = [
   {
