@@ -25,16 +25,9 @@ export const PdfButtons = () => {
       </Stack>
       <Stack>
         <PDFDownloadLink document={<MyDocument image={image} />} fileName="temperature-data.pdf">
-          {({ loading }) => (
-            <Button
-              size="small"
-              startIcon={<DownloadIcon />}
-              variant="contained"
-              disabled={loading}
-            >
-              {loading ? 'Generating...' : 'Download Pdf'}
-            </Button>
-          )}
+          <Button size="small" startIcon={<DownloadIcon />} variant="contained">
+            Download pdf
+          </Button>
         </PDFDownloadLink>
       </Stack>
     </Stack>
