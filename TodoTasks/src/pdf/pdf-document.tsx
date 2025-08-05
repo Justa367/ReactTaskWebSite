@@ -71,7 +71,7 @@ export const MyDocument = ({ image }: MyDocumentProps) => {
 
         {image ? (
           <View style={styles.container}>
-            <Text style={styles.titleText}>Chart Image:</Text>
+            <Text style={styles.titleText}>Temperature Plot for Japan, Canada and Germany</Text>
             <PdfImage src={image} style={styles.pdfImage} />
           </View>
         ) : (

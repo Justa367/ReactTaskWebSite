@@ -44,7 +44,7 @@ export const NewPage = () => {
   if (error) return <Typography color="error">{error}</Typography>;
   return (
     <Stack sx={{ p: 4 }}>
-      <Stack mb={2} alignItems={'center'}>
+      <Stack mb={1} alignItems={'center'}>
         <NavLink to="/pdf-viewer">
           <Button variant={'outlined'}>Export temperature data to pdf</Button>
         </NavLink>
