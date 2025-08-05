@@ -4,16 +4,19 @@ import { NewPage } from './pages/new-page.tsx';
 import Layout from './layout.tsx';
 import { NotFound } from './pages/not-found.tsx';
 import { PdfView } from './pages/pdf-viewer.tsx';
+import { ChartImageProvider } from './chat-img-context/chat-img-context.tsx';
 
 export const Routing = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index path="/" element={<HomePage />} />
-        <Route path="/new-page" element={<NewPage />} />
-        <Route path="/pdf-viewer" element={<PdfView />} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
-    </Routes>
+    <ChartImageProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index path="/" element={<HomePage />} />
+          <Route path="/new-page" element={<NewPage />} />
+          <Route path="/pdf-viewer" element={<PdfView />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </ChartImageProvider>
   );
 };
