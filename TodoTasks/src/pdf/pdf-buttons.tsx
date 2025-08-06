@@ -17,7 +17,7 @@ export const PdfButtons = () => {
             Back to Task Page
           </Button>
         </NavLink>
-        <NavLink to={'/new-page'}>
+        <NavLink to={'/weather-page'}>
           <Button size="small" startIcon={<ThermostatIcon />} variant={'contained'}>
             Back to Weather Page
           </Button>

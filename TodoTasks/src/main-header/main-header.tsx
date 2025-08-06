@@ -64,8 +64,11 @@ export const MainHeader = () => {
             <StyledNavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
               <Button sx={{ color: 'white' }}>Home</Button>
             </StyledNavLink>
-            <StyledNavLink to="/new-page" className={({ isActive }) => (isActive ? 'active' : '')}>
-              <Button sx={{ color: 'white' }}>New Page</Button>
+            <StyledNavLink
+              to="/weather-page"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              <Button sx={{ color: 'white' }}>Weather Page</Button>
             </StyledNavLink>
             {/* <StyledNavLink
               to="/pdf-viewer"

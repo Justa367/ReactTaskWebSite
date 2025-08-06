@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Toolbar from '@mui/material/Toolbar';
 import { DataGrid, type GridRowSelectionModel } from '@mui/x-data-grid';
 import { type Dispatch, type SetStateAction } from 'react';
-import type { MultiCountryData } from '../pages/new-page';
+import type { MultiCountryData } from '../pages/weather-page';
 
 type TemperatureTableProps = {
   rows: TemperatureRowType[];
@@ -44,12 +44,11 @@ export const TemperatureTable = ({
   }));
 
   const handleDeleteItems = () => {
-    // if (rowSelectionModel.type === 'exclude') {
-    //   setData([]);
-    //   setRowSelectionModel({ type: 'include', ids: new Set() });
-    //
-    //   return;
-    // }
+    if (rowSelectionModel.type === 'exclude') {
+      setData(null);
+      setRowSelectionModel({ type: 'include', ids: new Set() });
+      return;
+    }
     const selectedIds = Array.from((rowSelectionModel as any).ids ?? new Set());
 
     const newRows = rows.filter((row, idx) => {
@@ -74,8 +73,10 @@ export const TemperatureTable = ({
       <DataGrid
         showToolbar
         slots={{
-          //TODO zmienic warunek jesli wszystkie zaznaczone
-          toolbar: rowSelectionModel.ids.size > 0 ? CustomToolbar : () => <></>,
+          toolbar:
+            rowSelectionModel.type === 'exclude' || rowSelectionModel.ids.size > 0
+              ? CustomToolbar
+              : () => <></>,
         }}
         slotProps={{
           toolbar: {
